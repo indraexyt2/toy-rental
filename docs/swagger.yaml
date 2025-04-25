@@ -1,0 +1,1051 @@
+basePath: /api
+definitions:
+  entity.CreatePaymentRequest:
+    properties:
+      rental_id:
+        type: string
+    required:
+    - rental_id
+    type: object
+  entity.CreateRentalItemRequest:
+    properties:
+      condition_before:
+        type: string
+      quantity:
+        type: integer
+      toy_id:
+        type: string
+    type: object
+  entity.CreateRentalRequest:
+    properties:
+      expected_return_date:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/entity.CreateRentalItemRequest'
+        type: array
+      notes:
+        type: string
+      rental_date:
+        type: string
+      user_id:
+        type: string
+    type: object
+  entity.ExtendRentalRequest:
+    properties:
+      new_expected_return_date:
+        type: string
+      notes:
+        type: string
+    required:
+    - new_expected_return_date
+    type: object
+  entity.Payment:
+    properties:
+      expiry_time:
+        type: string
+      fraud_status:
+        type: string
+      gross_amount:
+        type: number
+      id:
+        type: string
+      order_id:
+        type: string
+      payment_method:
+        type: string
+      payment_type:
+        type: string
+      rental_id:
+        type: string
+      snap_token:
+        type: string
+      snap_url:
+        type: string
+      transaction_status:
+        type: string
+      transaction_time:
+        type: string
+      va_number:
+        type: string
+    type: object
+  entity.Rental:
+    properties:
+      actual_return_date:
+        type: string
+      damage_fee:
+        type: number
+      expected_return_date:
+        type: string
+      id:
+        type: string
+      late_fee:
+        type: number
+      notes:
+        type: string
+      payment_status:
+        type: string
+      rental_date:
+        type: string
+      rental_items:
+        items:
+          $ref: '#/definitions/entity.RentalItem'
+        type: array
+      status:
+        type: string
+      total_amount:
+        type: number
+      total_rental_price:
+        type: number
+      user_id:
+        type: string
+    type: object
+  entity.RentalItem:
+    properties:
+      condition_after:
+        type: string
+      condition_before:
+        type: string
+      damage_description:
+        type: string
+      damage_fee:
+        type: number
+      id:
+        type: string
+      price_per_unit:
+        type: number
+      quantity:
+        type: integer
+      rental_id:
+        type: string
+      status:
+        type: string
+      toy:
+        $ref: '#/definitions/entity.Toy'
+      toy_id:
+        type: string
+    type: object
+  entity.ReturnRentalItemRequest:
+    properties:
+      condition_after:
+        type: string
+      damage_description:
+        type: string
+      rental_item_id:
+        type: string
+    required:
+    - condition_after
+    - rental_item_id
+    type: object
+  entity.ReturnRentalRequest:
+    properties:
+      actual_return_date:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/entity.ReturnRentalItemRequest'
+        type: array
+      notes:
+        type: string
+    required:
+    - actual_return_date
+    - items
+    type: object
+  entity.Toy:
+    properties:
+      age_recommendation:
+        type: string
+      categories:
+        items:
+          $ref: '#/definitions/entity.ToyCategory'
+        type: array
+      condition:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      images:
+        items:
+          $ref: '#/definitions/entity.ToyImage'
+        type: array
+      is_available:
+        type: boolean
+      late_fee_per_day:
+        type: number
+      name:
+        type: string
+      primary_image:
+        type: string
+      rental_price:
+        type: number
+      replacement_price:
+        type: number
+      stock:
+        type: integer
+    type: object
+  entity.ToyCategory:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  entity.ToyImage:
+    properties:
+      id:
+        type: string
+      image_url:
+        type: string
+    type: object
+  entity.ToyRequest:
+    properties:
+      age_recommendation:
+        type: string
+      category_ids:
+        items:
+          type: string
+        type: array
+      condition:
+        type: string
+      description:
+        type: string
+      image_ids:
+        items:
+          type: string
+        type: array
+      is_available:
+        type: boolean
+      late_fee_per_day:
+        type: number
+      name:
+        type: string
+      primary_image_id:
+        type: string
+      rental_price:
+        type: number
+      replacement_price:
+        type: number
+      stock:
+        type: integer
+    required:
+    - category_ids
+    - condition
+    - image_ids
+    - late_fee_per_day
+    - name
+    - rental_price
+    - replacement_price
+    - stock
+    type: object
+  entity.ToyUpdateRequest:
+    properties:
+      age_recommendation:
+        type: string
+      category_ids:
+        items:
+          type: string
+        type: array
+      condition:
+        type: string
+      description:
+        type: string
+      image_ids:
+        items:
+          type: string
+        type: array
+      is_available:
+        type: boolean
+      late_fee_per_day:
+        type: number
+      name:
+        type: string
+      primary_image_id:
+        type: string
+      rental_price:
+        type: number
+      replacement_price:
+        type: number
+      stock:
+        type: integer
+    required:
+    - category_ids
+    - condition
+    - image_ids
+    - late_fee_per_day
+    - name
+    - rental_price
+    - replacement_price
+    - stock
+    type: object
+  entity.User:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+      phone_number:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+  entity.UserLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  response.APISuccessResponse:
+    properties:
+      data: {}
+      message:
+        type: string
+      metadata: {}
+      status_code:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: indra@dev.com
+    name: Indrawansyah
+  description: REST API for toy rental service
+  title: ToyRental API
+  version: "1.0"
+paths:
+  /admin/user/{id}:
+    get:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      security:
+      - ApiCookieAuth: []
+      summary: Mengambil data user berdasarkan id
+      tags:
+      - users
+  /admin/users:
+    get:
+      description: Get list of all users
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.User'
+            type: array
+      security:
+      - ApiCookieAuth: []
+      summary: List users
+      tags:
+      - users
+  /business-report/customers:
+    get:
+      description: Mendapatkan laporan pelanggan yang paling aktif berdasarkan jumlah
+        penyewaan dan pengeluaran
+      parameters:
+      - description: Tanggal mulai (YYYY-MM-DD)
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: Tanggal akhir (YYYY-MM-DD)
+        in: query
+        name: end_date
+        required: true
+        type: string
+      - description: 'Jumlah data (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Mendapatkan laporan pelanggan teratas
+      tags:
+      - Business Report
+  /business-report/popular-toys:
+    get:
+      description: Mendapatkan laporan mainan paling populer berdasarkan jumlah penyewaan
+      parameters:
+      - description: Tanggal mulai (YYYY-MM-DD)
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: Tanggal akhir (YYYY-MM-DD)
+        in: query
+        name: end_date
+        required: true
+        type: string
+      - description: 'Jumlah data (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Mendapatkan laporan mainan populer
+      tags:
+      - Business Report
+  /business-report/rental-status:
+    get:
+      description: Mendapatkan laporan jumlah penyewaan berdasarkan status
+      parameters:
+      - description: Tanggal mulai (YYYY-MM-DD)
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: Tanggal akhir (YYYY-MM-DD)
+        in: query
+        name: end_date
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Mendapatkan laporan status penyewaan
+      tags:
+      - Business Report
+  /business-report/sales:
+    get:
+      description: Mendapatkan laporan penjualan dalam rentang waktu tertentu
+      parameters:
+      - description: Tanggal mulai (YYYY-MM-DD)
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: Tanggal akhir (YYYY-MM-DD)
+        in: query
+        name: end_date
+        required: true
+        type: string
+      - description: Pengelompokan (day, week, month)
+        in: query
+        name: group_by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Mendapatkan laporan penjualan
+      tags:
+      - Business Report
+  /payment:
+    post:
+      consumes:
+      - application/json
+      description: Buat pembayaran baru menggunakan midtrans
+      parameters:
+      - description: ID Rental
+        in: body
+        name: rental_id
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreatePaymentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Payment'
+      summary: Membuat pembayaran rental
+      tags:
+      - Payment
+  /payment/{id}:
+    get:
+      description: Mendapatkan detail pembayaran berdasarkan ID
+      parameters:
+      - description: ID Pembayaran
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Payment'
+      summary: Mendapatkan detail pembayaran
+      tags:
+      - Payment
+  /payment/callback:
+    post:
+      consumes:
+      - application/json
+      description: Endpoint untuk menerima notifikasi dari Midtrans
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Menangani callback dari Midtrans
+      tags:
+      - Payment
+  /payment/rental/{rental_id}:
+    get:
+      description: Mendapatkan semua pembayaran berdasarkan ID rental
+      parameters:
+      - description: ID Rental
+        in: path
+        name: rental_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Payment'
+            type: array
+      summary: Mendapatkan semua pembayaran untuk rental
+      tags:
+      - Payment
+  /rental:
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Rental'
+      summary: Mendapatkan semua data rental
+      tags:
+      - Rental
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Rental
+        in: body
+        name: rental
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateRentalRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Rental'
+      summary: Insert rental baru
+      tags:
+      - Rental
+  /rental/{id}:
+    delete:
+      parameters:
+      - description: Rental ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Hapus rental
+      tags:
+      - Rental
+    get:
+      parameters:
+      - description: Rental ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Rental'
+      summary: Mendapatkan data rental berdasarkan id
+      tags:
+      - Rental
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID Rental
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data perpanjangan rental
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ExtendRentalRequest'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiCookieAuth: []
+      summary: Perpanjang sewa rental
+      tags:
+      - Rental
+  /rental/{id}/return:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Rental ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data pengembalian rental
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ReturnRentalRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Rental'
+      summary: Pengembalian rental
+      tags:
+      - Rental
+  /toy:
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Toy'
+      summary: Mengambil semua data toy
+      tags:
+      - Toy
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Data mainan baru
+        in: body
+        name: toy
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ToyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Toy'
+      summary: Menambahkan mainan baru
+      tags:
+      - Toy
+  /toy/{id}:
+    delete:
+      parameters:
+      - description: Toy Image ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Toy'
+      summary: Menghapus mainan berdasarkan id
+      tags:
+      - Toy
+    get:
+      parameters:
+      - description: Toy ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Toy'
+      summary: Mengambil data toy berdasarkan id
+      tags:
+      - Toy
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Toy ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Data mainan yang diperbarui
+        in: body
+        name: toy
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ToyUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated Toy
+          schema:
+            $ref: '#/definitions/entity.Toy'
+      summary: Update mainan berdasarkan id
+      tags:
+      - Toy
+  /toy/category:
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ToyCategory'
+      summary: Mengambil semua data toy category
+      tags:
+      - Toy Category
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Toy Category
+        in: body
+        name: toy_category
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ToyCategory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Insert toy category
+      tags:
+      - Toy Category
+  /toy/category/{id}:
+    delete:
+      parameters:
+      - description: Toy Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Delete toy berdasarkan id
+      tags:
+      - Toy Category
+    get:
+      parameters:
+      - description: Toy Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ToyCategory'
+      summary: Mengambil data toy category berdasarkan id
+      tags:
+      - Toy Category
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Toy Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Toy Category
+        in: body
+        name: toy_category
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ToyCategory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      summary: Update toy berdasarkan id
+      tags:
+      - Toy Category
+  /toy/image:
+    get:
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ToyImage'
+      summary: Mengambil semua data toy image
+      tags:
+      - Toy Image
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Upload multiple images
+        in: formData
+        name: images
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ToyImage'
+      summary: Insert toy image
+      tags:
+      - Toy Image
+  /toy/image/{id}:
+    delete:
+      parameters:
+      - description: Toy Image ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ToyImage'
+      summary: Delete toy berdasarkan id
+      tags:
+      - Toy Image
+  /user/auth/{id}:
+    delete:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      security:
+      - ApiCookieAuth: []
+      summary: Delete user berdasarkan id
+      tags:
+      - users
+    put:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/entity.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      security:
+      - ApiCookieAuth: []
+      summary: Update user berdasarkan id
+      tags:
+      - users
+  /user/auth/login:
+    post:
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      summary: Login
+      tags:
+      - users
+  /user/auth/logout:
+    delete:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APISuccessResponse'
+      security:
+      - ApiCookieAuth: []
+      summary: Logout
+      tags:
+      - users
+  /user/auth/me:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      security:
+      - ApiCookieAuth: []
+      summary: Get user berdasarkan token
+      tags:
+      - users
+  /user/auth/register:
+    post:
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/entity.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+      summary: Membuat user baru
+      tags:
+      - users
+swagger: "2.0"

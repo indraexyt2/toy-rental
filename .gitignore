@@ -1,0 +1,15 @@
+# Environment file
+.env
+
+# Go module checksum file
+go.sum
+
+# Editor/backup files
+*~
+*.swp
+*.swo
+
+# Binaries
+*.exe
+*.out
+*.test
