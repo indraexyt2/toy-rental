@@ -52,7 +52,6 @@ func (s *RentalService) CreateRental(ctx context.Context, req entity.CreateRenta
 	}
 
 	rentalDays := int(req.ExpectedReturnDate.Sub(req.RentalDate).Hours() / 24)
-	fmt.Println(rentalDays)
 	if rentalDays < 1 {
 		return nil, errors.New("tanggal pengembalian harus setelah tanggal rental")
 	}
@@ -89,7 +88,14 @@ func (s *RentalService) CreateRental(ctx context.Context, req entity.CreateRenta
 		return nil, err
 	}
 
-	return rental, nil
+	newRent, err := s.rentalRepo.FindById(ctx, rental.ID.String())
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("rental: %+v\n", newRent)
+
+	return &newRent, nil
 }
 
 func (s *RentalService) ReturnRental(ctx context.Context, id string, req entity.ReturnRentalRequest) (*entity.Rental, error) {

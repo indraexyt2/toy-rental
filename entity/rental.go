@@ -46,7 +46,7 @@ type Rental struct {
 	PaymentStatus      string     `gorm:"size:50;not null;default:unpaid;check:payment_status IN ('unpaid', 'pending', 'paid', 'expired', 'failed', 'refunded', 'partially_paid', 'extension')" json:"payment_status,omitempty"`
 	Notes              string     `gorm:"type:text" json:"notes,omitempty"`
 
-	User        User         `gorm:"foreignKey:UserID" json:"user,omitempty" swaggerignore:"true"`
+	User        User         `gorm:"foreignKey:UserID" json:"-" swaggerignore:"true"`
 	RentalItems []RentalItem `gorm:"foreignKey:RentalID" json:"rental_items,omitempty"`
 	Payments    []Payment    `gorm:"foreignKey:RentalID" json:"payments,omitempty" swaggerignore:"true"`
 }

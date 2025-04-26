@@ -21,10 +21,8 @@ type PopularToyItem struct {
 	ToyName         string    `json:"toy_name"`
 	ImageURL        string    `json:"image_url"`
 	RentalCount     int       `json:"rental_count"`
-	TotalRentalDays int       `json:"total_rental_days"`
 	AverageDuration float64   `json:"average_duration"`
 	Revenue         float64   `json:"revenue"`
-	Categories      []string  `json:"categories"`
 }
 
 type TopCustomerItem struct {

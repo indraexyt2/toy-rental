@@ -126,9 +126,9 @@ func (r *BusinessReportRepository) GetPopularToys(ctx context.Context, startDate
 				tc.toy_id,
 				STRING_AGG(c.name, ', ') AS category_names
 			FROM 
-				toy_categories tc
+				toy_toy_categories tc
 			JOIN 
-				categories c ON tc.toy_category_id = c.id
+				toy_categories c ON tc.toy_category_id = c.id
 			WHERE 
 				c.deleted_at IS NULL
 			GROUP BY 
@@ -139,10 +139,8 @@ func (r *BusinessReportRepository) GetPopularToys(ctx context.Context, startDate
 			t.name AS toy_name,
 			t.primary_image AS image_url,
 			COUNT(DISTINCT ri.rental_id) AS rental_count,
-			SUM(EXTRACT(DAY FROM (COALESCE(r.actual_return_date, CURRENT_DATE) - r.rental_date)) + 1) AS total_rental_days,
 			AVG(EXTRACT(DAY FROM (COALESCE(r.actual_return_date, CURRENT_DATE) - r.rental_date)) + 1) AS average_duration,
-			SUM(ri.price_per_unit * ri.quantity) AS revenue,
-			ARRAY_AGG(DISTINCT c.name) AS categories
+			SUM(ri.price_per_unit * ri.quantity) AS revenue
 		FROM 
 			toys t
 		JOIN 
@@ -150,9 +148,9 @@ func (r *BusinessReportRepository) GetPopularToys(ctx context.Context, startDate
 		JOIN 
 			rentals r ON ri.rental_id = r.id
 		LEFT JOIN 
-			toy_categories tc ON t.id = tc.toy_id
+			toy_toy_categories tc ON t.id = tc.toy_id
 		LEFT JOIN 
-			categories c ON tc.toy_category_id = c.id
+			toy_categories c ON tc.toy_category_id = c.id
 		WHERE 
 			r.rental_date BETWEEN ? AND ?
 			AND r.deleted_at IS NULL 

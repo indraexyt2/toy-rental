@@ -31,14 +31,12 @@ func NewRentalRepository(db *gorm.DB) IRentalRepository {
 
 func (r *RentalRepository) FindById(ctx context.Context, id string) (entity.Rental, error) {
 	var model entity.Rental
-	if err := r.DB.WithContext(ctx).Where("id = ?", id).
+	err := r.DB.WithContext(ctx).Where("id = ?", id).
 		Preload("RentalItems").
 		Preload("RentalItems.Toy").
-		Preload("User").
-		First(&model).Error; err != nil {
-		return model, err
-	}
-	return model, nil
+		First(&model).Error
+
+	return model, err
 }
 
 func (r *RentalRepository) Insert(ctx context.Context, model *entity.Rental) error {

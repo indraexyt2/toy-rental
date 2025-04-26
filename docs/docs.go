@@ -837,7 +837,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entity.ToyImage"
+                            "$ref": "#/definitions/response.APISuccessResponse"
                         }
                     }
                 }
@@ -1582,6 +1582,9 @@ const docTemplate = `{
                 },
                 "is_active": {
                     "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
                 },
                 "phone_number": {
                     "type": "string"

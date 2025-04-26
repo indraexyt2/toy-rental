@@ -71,7 +71,7 @@ func (t ToyImageController) FindAll(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param images formData file true "Upload multiple images"
-// @Success 200 {object} entity.ToyImage
+// @Success 200 {object} response.APISuccessResponse
 // @Router /toy/image [post]
 func (t ToyImageController) Insert(c *gin.Context) {
 	var logger = helpers.Logger

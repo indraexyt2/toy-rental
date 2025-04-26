@@ -124,6 +124,7 @@ func setupRoutes(cfg *config.Config, db *gorm.DB) *gin.Engine {
 		{
 			rental.POST("", rentalController.Insert)
 			rental.PUT("/:id", rentalController.UpdateById)
+			rental.GET("/:id", rentalController.FinById)
 		}
 
 		// Payment routes
@@ -173,7 +174,6 @@ func setupRoutes(cfg *config.Config, db *gorm.DB) *gin.Engine {
 		rental := admin.Group("/rental")
 		{
 			rental.GET("", rentalController.FindAll)
-			rental.GET("/:id", rentalController.FinById)
 			rental.PUT("/:id/return", rentalController.ReturnRental)
 		}
 

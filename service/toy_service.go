@@ -81,7 +81,12 @@ func (s *ToyService) CreateToy(ctx context.Context, toyRequest entity.ToyRequest
 		return nil, err
 	}
 
-	return toy, nil
+	newToy, err := s.toyRepo.FindById(ctx, toy.ID.String())
+	if err != nil {
+		return nil, err
+	}
+
+	return &newToy, nil
 }
 
 func (s *ToyService) UpdateToy(ctx context.Context, id string, toyRequest entity.ToyUpdateRequest) (*entity.Toy, error) {

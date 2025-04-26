@@ -292,6 +292,8 @@ definitions:
         type: string
       is_active:
         type: boolean
+      password:
+        type: string
       phone_number:
         type: string
       role:
@@ -915,7 +917,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entity.ToyImage'
+            $ref: '#/definitions/response.APISuccessResponse'
       summary: Insert toy image
       tags:
       - Toy Image
